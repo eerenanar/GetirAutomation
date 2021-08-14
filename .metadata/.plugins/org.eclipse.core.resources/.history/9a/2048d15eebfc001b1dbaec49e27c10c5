@@ -1,0 +1,51 @@
+package getirAppTests;
+
+import java.util.List;
+import java.util.Random;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+public class HomePage{
+	AppiumDriver<MobileElement> driver;
+	AppiumDriver<MobileElement> driver2;
+
+	public HomePage(AppiumDriver<MobileElement> driver,AppiumDriver<MobileElement> driver2) {
+		this.driver = driver;
+		rhis.driver2 = driver2;
+	}
+	
+    public int homePageSize(int tc){
+    	List<MobileElement> homePageElement = null;
+    	if(tc==1) {
+    		homePageElement =driver.findElements(By.xpath("//android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.view.ViewGroup"));
+    	}else {
+    		homePageElement =driver.findElements(By.xpath("//android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.support.v4.widget.DrawerLayout/android.view.ViewGroup"));
+    	}
+    	return homePageElement.size();
+    }
+    public WebElement notifications(){
+        WebElement notifications =driver.findElement(By.xpath("//android.widget.TextView[@content-desc=\"Notifications\"]"));
+        return notifications;
+    }
+    public WebElement leftMenuBtn(){
+        WebElement leftMenu =driver.findElement(By.xpath("//android.widget.ImageButton[@content-desc=\"Open navigation drawer\"]"));
+        //leftMenu.getAttribute("index");
+        return leftMenu;
+    }
+    public WebElement basketBtn(){
+        WebElement basket =driver.findElement(By.xpath("//android.widget.TextView[@content-desc=\"Cart\"]"));
+        return basket;
+    }
+    public void randomProduct(){
+        List<MobileElement> getProduct =driver.findElements(By.xpath("//android.view.ViewGroup/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.support.v7.widget.RecyclerView/*"));
+        Random rand = new Random();
+        int randomProduct = rand.nextInt(getProduct.size());
+        System.out.println("Selected random product = "+ randomProduct);
+        System.out.println("Total Product = "+ getProduct.size());
+        getProduct.get(randomProduct).click();
+    }
+
+}

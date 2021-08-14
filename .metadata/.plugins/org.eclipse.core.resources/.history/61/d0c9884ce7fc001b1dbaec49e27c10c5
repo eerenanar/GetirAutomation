@@ -1,0 +1,189 @@
+package getirAppTests;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.Assert;
+import org.testng.annotations.AfterSuite;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.remote.MobileCapabilityType;
+
+public class BaseClass {
+	static AppiumDriver<MobileElement> driver;
+	static AppiumDriver<MobileElement> driver2;
+	URL url;
+	@BeforeTest
+	public void setup() {
+		 try {
+		DesiredCapabilities capabilities;
+        capabilities = new DesiredCapabilities();
+        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME,"emulator-5554");
+        capabilities.setCapability(MobileCapabilityType.BROWSER_NAME,"Android");
+        capabilities.setCapability(MobileCapabilityType.VERSION,"7.0");
+        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME,"Android");
+        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME,"UiAutomator2");
+        capabilities.setCapability(MobileCapabilityType.APP,"C:\\Users\\anarer\\Desktop\\sampleGetir.apk");
+        
+        URL url=new URL("http://localhost:4723/wd/hub");
+        
+        driver = new AppiumDriver<MobileElement>(url,capabilities);
+     } catch (MalformedURLException e) {
+        e.printStackTrace();
+       }
+	}
+	//**
+	public AppiumDriver<MobileElement> GetInstance(){
+		if(driver == null) {
+			return driver = new AppiumDriver<MobileElement>(UrlCreator(),DesiredCapabilitiesCreator());
+		}
+		return driver;
+	}
+	
+	public AppiumDriver<MobileElement> GetInstanceTc2(){
+		if(driver2 == null) {
+			return driver2 = new AppiumDriver<MobileElement>(UrlCreator(),DesiredCapabilitiesCreator());
+		}
+		return driver2;
+	}
+	
+	private URL UrlCreator() {
+		try {
+			return url=new URL("http://localhost:4723/wd/hub");
+		} catch (MalformedURLException e) {
+			return url=null;
+		}
+	}
+	
+	private DesiredCapabilities DesiredCapabilitiesCreator(){
+		DesiredCapabilities capabilities;
+        capabilities = new DesiredCapabilities();
+        capabilities.setCapability(MobileCapabilityType.DEVICE_NAME,"emulator-5554");
+        capabilities.setCapability(MobileCapabilityType.BROWSER_NAME,"Android");
+        capabilities.setCapability(MobileCapabilityType.VERSION,"7.0");
+        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME,"Android");
+        capabilities.setCapability(MobileCapabilityType.AUTOMATION_NAME,"UiAutomator2");
+        capabilities.setCapability(MobileCapabilityType.APP,"C:\\Users\\anarer\\getirApp\\GetirApp\\src\\test\\resources\\apps\\sampleGetir.apk");
+        return capabilities;
+	}
+	
+	////****
+	public void sleepForOnboarding() {
+        try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	public void sleep() {
+        try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	@Test 
+	public void paralel() {
+		System.out.println("paralel"+Thread.currentThread().getId());
+	}
+	@Test
+	public void Case1() throws InterruptedException {
+
+		if(driver == null) {
+			GetInstance();
+		}
+        OnboardScreen screenOnboard = new OnboardScreen(driver);
+        HomePage home = new HomePage(driver);
+        Product product = new Product(driver);
+        ShoppingCart cart = new ShoppingCart(driver);
+        TreeItemMenu leftmenu = new TreeItemMenu(driver);
+        //Onboarding Screen Checking
+        sleepForOnboarding();
+        System.out.println("Content size = "+screenOnboard.onBoardingScreenContent());
+        Assert.assertEquals(screenOnboard.onBoardingScreenContent(),3);
+        sleep();
+        screenOnboard.onBoardingScreenNextBtn().click();sleep();
+        screenOnboard.onBoardingScreenSkipBtn().click();sleep();
+        //Home Page Load Control
+        Assert.assertNotEquals(home.homePageSize(), 0);
+        //Open Left Menu
+        home.leftMenuBtn().click();sleep();
+        //Open Categories 'Baby Care'
+        leftmenu.getBabyCare().click();sleep();
+        //Open Random Product
+        home.randomProduct();sleep();
+        //Open Detail
+        product.getDetail().getText();sleep();
+        //Add product to basket
+        product.addToCart().click();sleep();
+        //Return Lastpage
+        driver.navigate().back();sleep();
+        //Open Left Menu
+        home.leftMenuBtn().click();sleep();
+        //Open Categories 'Snacks'
+        leftmenu.getSnacks().click();sleep();
+        //Open Random Product
+        home.randomProduct();sleep();
+        //Open Detail
+        product.getDetail().getText();sleep();
+        //Add product to basket
+        product.addToCart().click();sleep();
+        //Return Lastpage
+        driver.navigate().back();sleep();
+        //Open Basket
+        home.basketBtn().click();sleep();
+        //Check products on Basket
+        int sizeproduct =cart.shoppingCartSize();
+        System.out.println("Total product on Shopping Cart ="+ sizeproduct);
+        Assert.assertEquals(cart.shoppingCartSize(), 2);sleep();
+        //Check Price on Basket
+        System.out.println("Total price on Shopping Cart ="+cart.totalPriceOnBasket().getText());
+        Assert.assertEquals(cart.totalPriceOnBasket().getText(), "$3.96");sleep();
+        //Delete All Product
+        cart.removeShoppingCart();sleep();
+        //Check basket should be null
+        System.out.println("Shopping Product Count ="+cart.removeShoppingCart());
+        Assert.assertEquals(cart.removeShoppingCart(), 0);sleep();
+        //driver.quit();
+        //driver = null;
+        driver.resetApp();
+        Thread.sleep(5000);
+	}
+	
+	@Test
+	public void Case2() throws InterruptedException {
+		//driver = GetInstance();
+		if(driver == null) {
+			GetInstance();
+		}
+        OnboardScreen screenOnboard = new OnboardScreen(driver);
+        HomePage home = new HomePage(driver);
+        Product product = new Product(driver);
+        ShoppingCart cart = new ShoppingCart(driver);
+        TreeItemMenu leftmenu = new TreeItemMenu(driver);
+		//Onboarding Screen Checking
+        Thread.sleep(5000);
+        sleepForOnboarding();
+        System.out.println("Content size case(2) = "+screenOnboard.onBoardingScreenContent());
+        Assert.assertEquals(screenOnboard.onBoardingScreenContent(),3);
+        sleep();
+        screenOnboard.onBoardingScreenNextBtn().click();sleep();
+        screenOnboard.onBoardingScreenSkipBtn().click();sleep();
+        //Home Page Load Control
+        Assert.assertNotEquals(home.homePageSize(), 0);
+	}
+	@AfterSuite
+	public void teardown() {
+		driver.close();
+		driver.quit();
+		
+	}
+}

@@ -1,0 +1,25 @@
+package getirAppTests;
+
+import org.testng.annotations.Test;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+
+public class bug {
+	AppiumDriver<MobileElement> driver;
+	public bug(AppiumDriver<MobileElement> driver) {
+		this.driver = driver;
+	}
+	@Test
+	public void Case3() throws InterruptedException {
+		System.out.println("bug cases");
+		OnboardScreen screenOnboard = new OnboardScreen(driver);
+        HomePage home = new HomePage(driver);
+      //  TreeItemMenu leftmenu = new TreeItemMenu(GetInstanceTc2());
+       // Whislist whislist = new Whislist(GetInstanceTc2());
+		//Onboarding Screen Checking
+        screenOnboard.onBoardingScreenSkipBtn().click();
+
+	}
+	
+}

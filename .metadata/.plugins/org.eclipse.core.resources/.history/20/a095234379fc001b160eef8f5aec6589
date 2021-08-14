@@ -1,0 +1,46 @@
+package getirAppTests;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+
+public class OnboardScreen {
+	
+	AppiumDriver<MobileElement> driver;
+	public OnboardScreen(AppiumDriver<MobileElement> driver) {
+		this.driver = driver;
+		System.out.println("batuhan deneme123");
+	}
+	//WebDriverWait wait = new WebDriverWait(driver, 15);
+	
+	@Test
+	public int onBoardingScreenContent(){
+
+		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.LinearLayout/*")));
+		List<MobileElement> content =driver.findElements(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.LinearLayout/*"));
+		System.out.println("d");
+		System.out.println(driver);
+		return content.size();
+    }
+    @Test
+	public WebElement onBoardingScreenNextBtn(){	
+
+		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.allandroidprojects.getirsample:id/btn_next")));
+    	WebElement nextBtn =driver.findElement(By.id("com.allandroidprojects.getirsample:id/btn_next"));
+		System.out.println("batuhan deneme123asdasd");
+        return nextBtn;
+    }
+    @Test
+    public WebElement onBoardingScreenSkipBtn(){
+        WebElement skipBtn =driver.findElement(By.id("com.allandroidprojects.getirsample:id/btn_skip"));
+        return skipBtn;
+    }
+
+}

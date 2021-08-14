@@ -1,0 +1,12 @@
+package getirAppTests;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+
+public class bug {
+	AppiumDriver<MobileElement> driver;
+	public bug(AppiumDriver<MobileElement> driver) {
+		this.driver = driver;
+	}
+	
+}

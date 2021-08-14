@@ -1,0 +1,67 @@
+package getirAppTests;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.Test;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+
+public class OnboardScreen {
+	
+	AppiumDriver<MobileElement> driver;
+	AppiumDriver<MobileElement> driver2;
+	public OnboardScreen(AppiumDriver<MobileElement> driver,AppiumDriver<MobileElement> driver2) {
+		this.driver = driver;
+		this.driver2 = driver2;
+	}
+	//WebDriverWait wait = new WebDriverWait(driver, 15);
+	
+
+	public int onBoardingScreenContent(int tc){
+		List<MobileElement> content = null;
+		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.LinearLayout/*")));
+		switch (tc) {
+		case 1:
+			content =driver.findElements(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.LinearLayout/*"));
+			break;
+		case 2:
+			content =driver2.findElements(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.LinearLayout/*"));
+			break;
+		case 3:
+			break;
+		}
+		return content.size();
+    }
+	public WebElement onBoardingScreenNextBtn(){
+		switch (tc) {
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		}
+		//wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("com.allandroidprojects.getirsample:id/btn_next")));
+    	WebElement nextBtn =driver.findElement(By.id("com.allandroidprojects.getirsample:id/btn_next"));
+        return nextBtn;
+    }
+
+    public WebElement onBoardingScreenSkipBtn(){
+		switch (tc) {
+		case 1:
+			break;
+		case 2:
+			break;
+		case 3:
+			break;
+		}
+        WebElement skipBtn =driver.findElement(By.id("com.allandroidprojects.getirsample:id/btn_skip"));
+        return skipBtn;
+    }
+
+}

@@ -1,0 +1,17 @@
+package getirAppTests;
+
+import org.testng.annotations.Test;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+
+public class Whislist {
+	AppiumDriver<MobileElement> driver;
+	public Whislist(AppiumDriver<MobileElement> driver) {
+		this.driver = driver;
+	}
+	@Test
+	public void deneme() {
+		System.out.println("whisss");
+	}
+}

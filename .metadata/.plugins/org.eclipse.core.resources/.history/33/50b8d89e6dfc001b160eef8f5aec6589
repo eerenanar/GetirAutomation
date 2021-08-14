@@ -1,0 +1,29 @@
+package getirAppTests;
+
+import java.util.List;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.testng.annotations.Test;
+
+import io.appium.java_client.MobileElement;
+
+public class OnboardScreen extends BaseClass {
+	@Test	
+	public int onBoardingScreenContent(){
+		System.out.println("d");
+		List<MobileElement> content =driver.findElements(By.xpath("/hierarchy/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.LinearLayout/android.widget.FrameLayout/android.widget.RelativeLayout/android.support.v4.view.ViewPager/android.widget.RelativeLayout/android.widget.LinearLayout/*"));
+        return content.size();
+    }
+    @Test
+	public WebElement onBoardingScreenNextBtn(){
+    	WebElement nextBtn =driver.findElement(By.id("com.allandroidprojects.getirsample:id/btn_next"));
+        return nextBtn;
+    }
+    @Test
+    public WebElement onBoardingScreenSkipBtn(){
+        WebElement skipBtn =driver.findElement(By.id("com.allandroidprojects.getirsample:id/btn_skip"));
+        return skipBtn;
+    }
+
+}

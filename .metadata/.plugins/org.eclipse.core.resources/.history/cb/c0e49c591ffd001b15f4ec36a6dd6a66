@@ -1,0 +1,62 @@
+package getirAppTests;
+
+import java.net.MalformedURLException;
+import java.net.URL;
+
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.testng.annotations.BeforeTest;
+import org.testng.annotations.Test;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.MobileElement;
+import io.appium.java_client.remote.AndroidMobileCapabilityType;
+import io.appium.java_client.remote.MobileCapabilityType;
+
+public class bug {
+	static AppiumDriver<MobileElement> driver;
+URL url;
+	
+	@BeforeTest
+	public void setup() {
+		GetInstanceTc1();
+	}
+
+	public AppiumDriver<MobileElement> GetInstanceTc1(){
+		if(driver == null) {
+			return driver = new AppiumDriver<MobileElement>(UrlCreator(),DesiredCapabilitiesCreator1());
+		}
+		return driver;
+	}
+	
+	private URL UrlCreator() {
+			try {
+				return url=new URL("http://localhost:4723/wd/hub");
+			} catch (MalformedURLException e) {
+				return url=null;
+			}
+	}
+	
+	private DesiredCapabilities DesiredCapabilitiesCreator1(){
+		DesiredCapabilities capabilities;
+        capabilities = new DesiredCapabilities();
+        capabilities.setCapability(MobileCapabilityType.UDID,"emulator-5554");
+        capabilities.setCapability(MobileCapabilityType.BROWSER_NAME,"Android");
+        capabilities.setCapability(MobileCapabilityType.VERSION,"7.0");
+        capabilities.setCapability(AndroidMobileCapabilityType.SYSTEM_PORT,"9538");
+        capabilities.setCapability(MobileCapabilityType.PLATFORM_NAME,"Android");
+        capabilities.setCapability(MobileCapabilityType.APP,"C:\\Users\\anarer\\getirApp\\GetirApp\\src\\test\\resources\\apps\\sampleGetir.apk");
+        return capabilities;
+	}
+	@Test
+	public void Case3() throws InterruptedException {
+		System.out.println("bug cases in bug class");
+		OnboardScreen screenOnboard = new OnboardScreen(GetInstanceTc1());
+        HomePage home = new HomePage(GetInstanceTc1());
+      //  TreeItemMenu leftmenu = new TreeItemMenu(GetInstanceTc2());
+       // Whislist whislist = new Whislist(GetInstanceTc2());
+		//Onboarding Screen Checking
+        screenOnboard.onBoardingScreenSkipBtn().click();
+
+	}
+	
+}
